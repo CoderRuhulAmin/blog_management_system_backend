@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\PasswordController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -21,4 +22,13 @@ Route::get('healthcheck', function(){
 Route::prefix('auth')->group(function(){
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('/password/forget', [PasswordController::class, 'forgetPassword']);
+    Route::post('/password/reset', [PasswordController::class, 'resetPassword']);
+});
+
+Route::fallback(function(){
+    return response()->json([
+        'status' => 'error',
+        'message' => 'API Endpoint not found!',
+    ]);
 });

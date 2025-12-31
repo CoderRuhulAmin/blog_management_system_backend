@@ -8,23 +8,23 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegistrationRequest;
-use App\Services\Auth\AuthServic;
+use App\Services\Auth\AuthService;
 
 class AuthController extends Controller
 {
-    public function __construct(private AuthServic $authServic)
+    public function __construct(private AuthService $authService)
     {
        //
     }
 
     public function register(RegistrationRequest $request){
 
-        return $this->authServic->userRegister($request);
+        return $this->authService->userRegister($request);
 
     }
     public function login(LoginRequest $request){
         
-        return $this->authServic->userLogin($request);
+        return $this->authService->userLogin($request);
         
     }
 }
